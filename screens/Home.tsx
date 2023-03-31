@@ -1,4 +1,4 @@
-import {StyleSheet, Text, TextInput, TouchableOpacity, View} from "react-native";
+import {Dimensions, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View} from "react-native";
 import React, {useState} from "react";
 
 interface Note {
@@ -6,6 +6,8 @@ interface Note {
     title: string;
     content: string;
 }
+
+const screenWidth = Dimensions.get('window').width;
 
 const Home = () => {
     const [notes, setNotes] = useState<Note[]>([]);
@@ -44,42 +46,47 @@ const Home = () => {
     };
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>My Notes</Text>
-            <TextInput
-                style={styles.input}
-                placeholder="Title"
-                value={title}
-                onChangeText={setTitle}
-            />
-            <TextInput
-                style={styles.input}
-                placeholder="Content"
-                multiline={true}
-                value={content}
-                onChangeText={setContent}
-            />
-            {editingNoteId ? (
-                <TouchableOpacity style={styles.button} onPress={editNote}>
-                    <Text style={styles.buttonText}>Save Note</Text>
-                </TouchableOpacity>
-            ) : (
-                <TouchableOpacity style={styles.button} onPress={addNote}>
-                    <Text style={styles.buttonText}>Add Note</Text>
-                </TouchableOpacity>
-            )}
-            {notes.map((note) => (
-                <TouchableOpacity key={note.id} onPress={() => handleNotePress(note)}>
-                    <View style={styles.note}>
-                        <Text style={styles.noteTitle}>{note.title}</Text>
-                        <Text style={styles.noteContent}>{note.content}</Text>
-                        <TouchableOpacity
-                            style={styles.deleteButton}
-                            onPress={() => deleteNote(note.id)}>
-                            <Text style={styles.deleteButtonText}>Delete</Text>
+            <ScrollView contentContainerStyle={styles.scrollViewContainerStyle}>
+                <View style={styles.innerContainer}>
+                    <Text style={styles.title}>My Notes</Text>
+                    <TextInput
+                        style={styles.input}
+                        placeholder="Title"
+                        value={title}
+                        onChangeText={setTitle}
+                    />
+                    <TextInput
+                        style={styles.input}
+                        placeholder="Content"
+                        multiline={true}
+                        value={content}
+                        onChangeText={setContent}
+                    />
+                    {editingNoteId ? (
+                        <TouchableOpacity style={styles.button} onPress={editNote}>
+                            <Text style={styles.buttonText}>Save Note</Text>
                         </TouchableOpacity>
-                    </View>
-                </TouchableOpacity>
-            ))}
+                    ) : (
+                        <TouchableOpacity style={styles.button} onPress={addNote}>
+                            <Text style={styles.buttonText}>Add Note</Text>
+                        </TouchableOpacity>
+                    )}
+                    {notes.map((note) => (
+                        <TouchableOpacity key={note.id} onPress={() => handleNotePress(note)}>
+                            <View style={styles.note}>
+                                <Text style={styles.noteTitle}>{note.title}</Text>
+                                <Text style={styles.noteContent}>{note.content}</Text>
+                                <TouchableOpacity
+                                    style={styles.deleteButton}
+                                    onPress={() => deleteNote(note.id)}>
+                                    <Text style={styles.deleteButtonText}>Delete</Text>
+                                </TouchableOpacity>
+                            </View>
+                        </TouchableOpacity>
+                    ))}
+                </View>
+            </ScrollView>
+
         </View>
     )
 }
@@ -91,6 +98,15 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'flex-start',
         paddingTop: 50,
+        height: '80%',
+    },
+    innerContainer: {
+        width: '100%',
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    scrollViewContainerStyle: {
+        width: screenWidth,
     },
     title: {
         fontSize: 32,

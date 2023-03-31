@@ -27,7 +27,7 @@ const Stack = createStackNavigator<RootStackParamList>();
 const App = () => {
     return (
         <NavigationContainer>
-            <MyStack />
+            <NotesStack />
         </NavigationContainer>
     );
 };
@@ -35,14 +35,14 @@ const App = () => {
 const WelcomeScreen = ({ navigation }: Props) => {
     return (
         <View style={styles.container}>
-            <Text style={styles.padding}>Welcome to My notes</Text>
-            <TouchableOpacity onPress={() => navigation.navigate('Home')} style={styles.padding}><Text>Go to home screen</Text></TouchableOpacity>
-            <TouchableOpacity onPress={() => navigation.navigate('About')} style={styles.padding}><Text>Go to about screen</Text></TouchableOpacity>
+            <Text style={styles.padding}>Welcome to My Notes</Text>
+            <TouchableOpacity onPress={() => navigation.navigate('Home')} style={[styles.padding, styles.margin, styles.bgColor]}><Text>Go to home screen</Text></TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate('About')} style={[styles.padding,styles.margin, styles.bgColorSecondary]}><Text>Go to about screen</Text></TouchableOpacity>
         </View>
     );
 }
 
-const MyStack = () => {
+const NotesStack = () => {
     return (
         <Stack.Navigator>
             <Stack.Screen name="Welcome" component={WelcomeScreen} />
@@ -61,6 +61,15 @@ const styles = StyleSheet.create({
     },
     padding: {
         padding: 20,
+    },
+    margin: {
+      margin: 10
+    },
+    bgColor: {
+        backgroundColor: '#2f9de3',
+    },
+    bgColorSecondary: {
+        backgroundColor: '#5b6bda',
     }
 });
 

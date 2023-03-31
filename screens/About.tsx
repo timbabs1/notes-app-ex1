@@ -3,7 +3,7 @@ import {StyleSheet, View, Text} from "react-native";
 const About = () => {
     return (
         <View style={styles.container}>
-            <Text style={styles.text}>About my notes</Text>
+            <Text style={styles.text}>About My Notes</Text>
         </View>
     );
 }
