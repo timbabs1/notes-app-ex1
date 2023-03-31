@@ -11,7 +11,7 @@ import React, { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 
 interface Note {
-  id: number;
+  id: string;
   title: string;
   content: string;
 }
@@ -22,10 +22,10 @@ const Home = () => {
   const [notes, setNotes] = useState<Note[]>([]);
   const [title, setTitle] = useState<string>("");
   const [content, setContent] = useState<string>("");
-  const [editingNoteId, setEditingNoteId] = useState<number | null>(null);
+  const [editingNoteId, setEditingNoteId] = useState<string | null>(null);
 
   const addNote = () => {
-    const newNote: Note = { id: parseInt(uuidv4()), title, content };
+    const newNote: Note = { id: uuidv4(), title, content };
     setNotes([...notes, newNote]);
     setTitle("");
     setContent("");
@@ -43,7 +43,7 @@ const Home = () => {
     }
   };
 
-  const deleteNote = (id: number) => {
+  const deleteNote = (id: string) => {
     const updatedNotes = notes.filter((note) => note.id !== id);
     setNotes(updatedNotes);
   };
